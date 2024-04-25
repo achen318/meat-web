@@ -1,19 +1,24 @@
 import './App.css';
 
-import { Table, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
+} from '@mui/material';
 
 import CamFeed from './components/CamFeed';
 import { useState } from 'react';
 
 export default function App() {
-  const [emotion, setEmotion] = useState('neutral');
-  const [confidence, setConfidence] = useState(0);
+  const [emoConf, setEmoConf] = useState({ emotion: '', confidence: 0 });
 
   return (
     <div className="App">
       <h1>Multimodal Emotion Analysis Technology</h1>
 
-      <CamFeed />
+      <CamFeed onFetched={setEmoConf} />
 
       <Table sx={{ maxWidth: 600 }}>
         <TableHead>
@@ -27,10 +32,12 @@ export default function App() {
           </TableRow>
         </TableHead>
 
-        <TableRow>
-          <TableCell>{emotion}</TableCell>
-          <TableCell>{confidence}</TableCell>
-        </TableRow>
+        <TableBody>
+          <TableRow>
+            <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>{emoConf.emotion}</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>{emoConf.confidence}</TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
 
       <footer className="App-footer">
