@@ -1,14 +1,31 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+
 import Webcam from 'react-webcam';
 
 const CamFeed = () => {
+  const webcamRef = useRef(null);
+  const [imgSrc, setImgSrc] = useState(null);
+
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImgSrc(imageSrc);
+  }, [webcamRef]);
+
   return (
-    <div className="container">
-      <Webcam height={600} width={600} mirrored />
-    </div>
+    <>
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        height={600}
+        width={600}
+      />
+
+      <button onClick={capture}>Capture photo</button>
+
+      {/* {imgSrc && <img src={imgSrc} />} */}
+    </>
   );
 };
 
 export default CamFeed;
-
-// https://blog.logrocket.com/using-react-webcam-capture-display-images/
-// https://www.npmjs.com/package/react-webcam
