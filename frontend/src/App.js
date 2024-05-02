@@ -12,7 +12,10 @@ import CamFeed from './components/CamFeed';
 import { useState } from 'react';
 
 export default function App() {
-  const [emoConf, setEmoConf] = useState({ emotion: '', confidence: 0 });
+  const [emoConf, setEmoConf] = useState({
+    emotion: 'Loading...',
+    confidence: 0
+  });
 
   return (
     <div className="App">
@@ -34,8 +37,12 @@ export default function App() {
 
         <TableBody>
           <TableRow>
-            <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>{emoConf.emotion}</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>{emoConf.confidence}</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>
+              {emoConf.emotion}
+            </TableCell>
+            <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>
+              {emoConf.confidence}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
