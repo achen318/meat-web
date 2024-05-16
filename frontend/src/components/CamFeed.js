@@ -4,21 +4,16 @@ import Webcam from 'react-webcam';
 
 export default function CamFeed({ onFetched }) {
   const webcamRef = useRef(null);
-  const [imgSrc, setImgSrc] = useState(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
       // get the img
       const imageSrc = webcamRef.current.getScreenshot();
-      setImgSrc(imageSrc);
 
       // send to backend (port 5000)
       fetch('http://localhost:5000/img-rec', {
-        method: 'POST'
-        // body: JSON.stringify({ imgSrc }),
-        // headers: {
-        //   'Content-Type': 'application/json'
-        // }
+        method: 'POST',
+        body: imageSrc
       })
         .then((res) => res.json())
         .then((data) => onFetched(data))
