@@ -7,10 +7,13 @@ export default function CamFeed({ onFetched }) {
 
   useEffect(() => {
     const timer = setInterval(() => {
+      const img = webcamRef.current.getScreenshot();
+      if (!img) return;
+
       // Send a base64 image to the backend (port 5000)
       fetch('http://localhost:5000/img-rec', {
         method: 'POST',
-        body: webcamRef.current.getScreenshot().split(',')[1] // !THIS SOMETIMES BREAKS
+        body: img.split(',')[1]
       })
         .then((res) => res.json())
         .then((data) => onFetched(data))
