@@ -19,7 +19,7 @@ def analyze_img():
     # Detect faces in the image
     faces = face_classifier.detectMultiScale(gray)
 
-    predicted_emotions = {}
+    predicted_emotions = []
 
     # Iterate through detected faces
     for x, y, w, h in faces:
@@ -34,11 +34,11 @@ def analyze_img():
 
             # Predict emotion using the CNN model
             prediction = classifier.predict(roi)[0]
-            predicted_emotions = {
-                "emotion": emotion_labels[np.argmax(prediction)],
-                "confidence": str(np.amax(prediction)),
-            }
+            for i, emotion in enumerate(emotion_labels):
+                predicted_emotions.append((emotion, str(prediction[i])))
 
+    # Sort emotions by confidence
+    predicted_emotions.sort(key=lambda x: float(x[1]), reverse=True)
     return predicted_emotions
 
 
