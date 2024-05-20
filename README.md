@@ -4,12 +4,12 @@ Multimodal Emotion Analysis Technology
 
 ## Install
 
-Backend: `pip install flask`
+Backend: `cd backend && pip install -r requirements.txt`
 
-Frontend: `npm i`
+Frontend: `cd frontend && npm i`
 
 ## Run in development mode
 
-Backend: `python3 -m flask run --debug`
+Backend: `cd backend && python3 app.py`
 
-Frontend: `npm start`
+Frontend: `cd frontend && npm start`

@@ -1,7 +1,9 @@
-import random
+import base64
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
+
+from models.image import analyze_img
 
 app = Flask(__name__)
 CORS(app)
@@ -14,10 +16,9 @@ def index():
 
 @app.post("/img-rec")
 def img_rec():
-    # does stuff w img w machine learnin
-    emotion = random.choice(
-        ["angry", "disgust", "fear", "happy", "neutral", "sad", "suprise"]
-    )
-    confidence = random.random()
+    img = base64.b64decode(request.data)
+    return analyze_img(img)
 
-    return {"confidence": confidence, "emotion": emotion}
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
