@@ -1,3 +1,5 @@
+import base64
+
 from flask import Flask, request
 from flask_cors import CORS
 
@@ -14,7 +16,7 @@ def index():
 
 @app.post("/img-rec")
 def img_rec():
-    img = request.data
+    img = base64.b64decode(request.data)
     return analyze_img(img)
 
 
