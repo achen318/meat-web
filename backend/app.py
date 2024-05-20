@@ -17,7 +17,11 @@ def index():
 @app.post("/img-rec")
 def img_rec():
     img = base64.b64decode(request.data)
-    return analyze_img(img)
+
+    with open("image.jpg", "wb") as f:
+        f.write(img)
+
+    return analyze_img()
 
 
 if __name__ == "__main__":

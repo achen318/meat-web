@@ -10,7 +10,7 @@ export default function CamFeed({ onFetched }) {
       // Send a base64 image to the backend (port 5000)
       fetch('http://localhost:5000/img-rec', {
         method: 'POST',
-        body: webcamRef.current.getScreenshot().split(',')[1]
+        body: webcamRef.current.getScreenshot().split(',')[1] // !THIS SOMETIMES BREAKS
       })
         .then((res) => res.json())
         .then((data) => onFetched(data))
