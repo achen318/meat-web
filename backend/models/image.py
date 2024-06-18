@@ -19,10 +19,12 @@ def analyze_img():
     # Detect faces in the image
     faces = face_classifier.detectMultiScale(gray)
 
-    predicted_emotions = []
+    faces_emotions = []
 
     # Iterate through detected faces
     for x, y, w, h in faces:
+        faces_emotions.append([])  # for each face
+
         # Extract ROI (region of interest) for face
         roi_gray = gray[y : y + h, x : x + w]
         roi_gray = cv2.resize(roi_gray, (48, 48), interpolation=cv2.INTER_AREA)
@@ -35,11 +37,12 @@ def analyze_img():
             # Predict emotion using the CNN model
             prediction = classifier.predict(roi)[0]
             for i, emotion in enumerate(emotion_labels):
-                predicted_emotions.append((emotion, str(prediction[i])))
+                faces_emotions[-1].append((emotion, str(prediction[i])))
 
     # Sort emotions by confidence
-    predicted_emotions.sort(key=lambda x: float(x[1]), reverse=True)
-    return predicted_emotions
+    for face_emotions in faces_emotions:
+        face_emotions.sort(key=lambda x: float(x[1]), reverse=True)
+    return faces_emotions
 
 
 # Example usage:
